@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/TodoAppMicro/static/css/main.e6c13ad2.css",
+    "main.js": "/TodoAppMicro/static/js/main.5b488ce3.js",
+    "static/js/453.061517d3.chunk.js": "/TodoAppMicro/static/js/453.061517d3.chunk.js",
+    "index.html": "/TodoAppMicro/index.html",
+    "main.e6c13ad2.css.map": "/TodoAppMicro/static/css/main.e6c13ad2.css.map",
+    "main.5b488ce3.js.map": "/TodoAppMicro/static/js/main.5b488ce3.js.map",
+    "453.061517d3.chunk.js.map": "/TodoAppMicro/static/js/453.061517d3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.5b488ce3.js"
+  ]
+}
