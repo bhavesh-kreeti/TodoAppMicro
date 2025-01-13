@@ -20,8 +20,8 @@ function TodoApp() {
 
     const fetchTasks = async () => {
         try {
-            const response = await axios.get(`${GET_TASKS_API_BASE_URL}/tasks`);
-            setTasks(response.data);
+            const response = localStorage.getItem('agarwalmehul:tasks') ? JSON.parse(localStorage.getItem('agarwalmehul:tasks')) : [];
+            setTasks(response);
         } catch (error) {
             console.error('Error fetching tasks', error);
         }
@@ -29,7 +29,9 @@ function TodoApp() {
 
     const createTask = async () => {
         try {
-            await axios.post(`${CREATE_TASK_API_BASE_URL}/tasks`, newTask);
+            const randomId = `id-${Math.random().toString(36).substr(2, 9)}`;
+
+            localStorage.setItem('agarwalmehul:tasks', JSON.stringify([...tasks, { ...newTask, id: randomId }]));
             fetchTasks();
             setNewTask({ title: '', description: '' });
         } catch (error) {
@@ -39,7 +41,8 @@ function TodoApp() {
 
     const deleteTask = async (taskId) => {
         try {
-            await axios.delete(`${DELETE_TASK_API_BASE_URL}/tasks/${taskId}`);
+            const updatedTasks = tasks.filter((task) => task.id !== taskId);
+            localStorage.setItem('agarwalmehul:tasks', JSON.stringify(updatedTasks));
             fetchTasks();
         } catch (error) {
             console.error('Error deleting task', error);
@@ -50,6 +53,8 @@ function TodoApp() {
         fetchTasks();
     }, []);
 
+    console.log(tasks);
+    
     return (
         <Box
             style={{
@@ -143,11 +148,11 @@ function TodoApp() {
 
                     {tasks.map((task) => (
                         <Box key={task.ID} mb={2}>
-                            <Card key={task.ID} variant="elevation">
+                            <Card key={task.title} variant="elevation">
                                 <CardContent>
-                                    <Typography variant="h6">{task.Title}</Typography>
-                                    <Typography variant="body2">{task.Description}</Typography>
-                                    <IconButton onClick={() => deleteTask(task.ID)} color="secondary">
+                                    <Typography variant="h6">{task.title}</Typography>
+                                    <Typography variant="body2">{task.description}</Typography>
+                                    <IconButton onClick={() => deleteTask(task.id)} color="secondary">
                                         <Delete />
                                     </IconButton>
                                 </CardContent>
